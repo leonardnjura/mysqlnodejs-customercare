@@ -1,5 +1,4 @@
 /node_modules
-/client
 /test/appTest.js
 /.nyc_output
 /coverage
