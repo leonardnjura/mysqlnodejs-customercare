@@ -1,42 +1,40 @@
 import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import uuid from 'uuid';
 import { connect } from 'react-redux';
-import { getPersonnels, deletePersonnel } from '../actions/personnelActions';
+import { getTasks, deleteTask } from '../actions/taskActions';
 import PropTypes from 'prop-types';
 
-class PersonnelList extends Component {
+class TaskList extends Component {
   componentDidMount() {
-    this.props.getPersonnels();
+    this.props.getTasks();
   }
 
-
-  onDeleteClick = (id) => {
-    this.props.deletePersonnel(id)
-  }
+  onDeleteClick = id => {
+    this.props.deleteTask(id);
+  };
 
   render() {
-    const { personnels } = this.props.personnel;
+    const { tasks } = this.props.task;
     return (
       <Container>
         <ListGroup>
-          <TransitionGroup className="personnel-list">
-            {personnels.map(({ personnel_id, personnel_fname }) => (
-              <CSSTransition key={personnel_id} timeout={500} classNames="fade">
+          <TransitionGroup className="task-list">
+            {tasks.map(({ task_id, customer_first_name }) => (
+              <CSSTransition key={task_id} timeout={500} classNames="fade">
                 <ListGroupItem>
-                <Button
+                  <Button
                     className="remove-btn"
                     outline
                     color="danger"
                     size="sm"
-                    onClick={this.onDeleteClick.bind(this, personnel_id)}
+                    onClick={this.onDeleteClick.bind(this, task_id)}
                   >
                     {' '}
                     &times;
                   </Button>
 
-                  {personnel_fname}
+                  {customer_first_name}
                 </ListGroupItem>
               </CSSTransition>
             ))}
@@ -47,16 +45,16 @@ class PersonnelList extends Component {
   }
 }
 
-PersonnelList.propTypes = {
-  getPersonnels: PropTypes.func.isRequired,
-  personnel: PropTypes.object.isRequired
+TaskList.propTypes = {
+  getTasks: PropTypes.func.isRequired,
+  task: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  personnel: state.personnel
+  task: state.task
 });
 
 export default connect(
   mapStateToProps,
-  { getPersonnels, deletePersonnel }
-)(PersonnelList);
+  { getTasks, deleteTask }
+)(TaskList);
