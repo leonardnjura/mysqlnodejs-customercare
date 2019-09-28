@@ -1,0 +1,9 @@
+export const GET_PERSONNELS = 'GET_PERSONNELS';
+export const ADD_PERSONNEL = 'ADD_PERSONNEL';
+export const DELETE_PERSONNEL = 'DELETE_PERSONNEL';
+export const PERSONNELS_LOADING = 'PERSONNELS_LOADING';
+
+export const GET_TASKS = 'GET_TASKS';
+export const ADD_TASK = 'ADD_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
+export const TASKS_LOADING = 'TASKS_LOADING';
