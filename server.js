@@ -1,10 +1,13 @@
 require('dotenv').config(); // to access .env
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
 
 const { db, DATABASE_NAME } = require('./config/database');
 
 // middleware
+app.use(cors());
 app.use(express.json());
 
 const { NODE_ENV } = process.env;

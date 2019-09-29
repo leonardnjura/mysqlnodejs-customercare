@@ -9,12 +9,22 @@ import {
   NavLink,
   Container
 } from 'reactstrap';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import RegisterModal from './auth/RegisterModal';
+import LoginModal from './auth/LoginModal';
+import Logout from './auth/Logout';
+import LogoIcon from 'mdi-react/AccountGroupOutlineIcon';
 
 class AppNavbar extends Component {
   state = {
     isOpen: false
   };
 
+  static propTypes = {
+    auth: PropTypes.object.isRequired
+  };
 
   toggle = () => {
     this.setState({
@@ -23,18 +33,24 @@ class AppNavbar extends Component {
   };
 
   render() {
-    const isAuthenticated = false;
+    const { isAuthenticated, user } = this.props.auth; // see reducer for state values
 
     const authLinks = (
       <Fragment>
-        <NavItem>{/* <Logout /> */}</NavItem>
+        <NavItem>
+          <Logout />
+        </NavItem>
       </Fragment>
     );
 
     const guestLinks = (
       <Fragment>
-        <NavItem>{/* <RegisterModal /> */}</NavItem>
-        <NavItem>{/* <LoginModal /> */}</NavItem>
+        <NavItem>
+          <RegisterModal />
+        </NavItem>
+        <NavItem>
+          <LoginModal />
+        </NavItem>
       </Fragment>
     );
 
@@ -43,15 +59,14 @@ class AppNavbar extends Component {
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
             <NavbarBrand href="/">
-              Personnel Tasks
+              <LogoIcon size="2em" className="theme" /> <br />
+              Customer Care
             </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="https://github.com/leonardnjura">
-                    Github
-                  </NavLink>
+                  <NavLink href="https://github.com/leonardnjura" />
                 </NavItem>
                 {isAuthenticated ? authLinks : guestLinks}
               </Nav>
@@ -63,4 +78,11 @@ class AppNavbar extends Component {
   }
 }
 
-export default AppNavbar;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(AppNavbar);
