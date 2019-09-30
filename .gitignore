@@ -1,11 +1,5 @@
 /node_modules
-/test/appTest.js
-/.nyc_output
-/coverage
 package-lock.json
 .DS_Store
 .env
-NOTES.txt
 yarn.lock
-yarn-error.log
-svr.js
